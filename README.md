@@ -15,3 +15,5 @@ vendored under `assets/`. Preview locally with:
 ```
 python -m http.server 8000
 ```
+
+Licences, credits and third-party material: see [THIRD-PARTY.md](THIRD-PARTY.md).
