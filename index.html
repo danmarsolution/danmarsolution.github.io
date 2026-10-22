@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="it" data-lens="dev">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniele Marinangeli — Software developer &amp; Technical PM</title>
+<meta name="description" content="Daniele Marinangeli: industrial software developer and head of a software division. Portfolio, IT/EN.">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root {
+  --bg: #e2e2e2;
+  --surface: #d3d3d3;
+  --ink: #7d0c14;
+  --muted: #6e3b3f;
+  --field: #7d0c14;
+  --field-ink: #e2e2e2;
+  --field-muted: #e6c4c7;
+  --margin: clamp(16px, 2.2vw, 32px);
+  --gap: clamp(96px, 12vw, 200px);
+  --step-small: clamp(0.9375rem, 0.9rem + 0.1vw, 1rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2.75rem, 1.2rem + 6.2vw, 7rem);
+  --d2: clamp(2rem, 1rem + 3.6vw, 4.125rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html[data-lens="pm"] {
+  --bg: #7d0c14;
+  --surface: #690911;
+  --ink: #e2e2e2;
+  --muted: #e6c4c7;
+  --field: #e2e2e2;
+  --field-ink: #7d0c14;
+  --field-muted: #6e3b3f;
+}
+* { margin: 0; box-sizing: border-box; }
+html { background: var(--bg); transition: background-color 0.7s var(--ease); scroll-behavior: smooth; }
+body { font-family: "Public Sans", system-ui, sans-serif; font-size: var(--step-body); line-height: 1.5; color: var(--ink); background: var(--bg); transition: background-color 0.7s var(--ease), color 0.7s var(--ease); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 0; background: none; }
+:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.display { font-family: "Big Shoulders", "Arial Narrow", sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -0.005em; line-height: 0.88; }
+p { max-width: 62ch; }
+
+/* ---- bar ---- */
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px var(--margin); background: var(--bg); transition: background-color 0.7s var(--ease); }
+.wordmark { font-size: var(--step-lead); text-decoration: none; }
+.mini { display: flex; gap: 6px; }
+.mini button, .langs button { padding: 8px 14px; font-weight: 600; font-size: var(--step-small); background: var(--surface); transition: background-color 0.3s, color 0.3s; }
+.mini button[aria-pressed="true"], .langs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.langs { display: flex; gap: 6px; }
+
+/* ---- hero ---- */
+.hero { padding: clamp(24px, 4vw, 56px) var(--margin) var(--gap); }
+.name { display: block; }
+.name .ln { display: block; width: max-content; overflow: hidden; white-space: nowrap; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.name .ln > span { display: block; transform: translateY(105%); animation: rise 1.15s var(--ease) forwards; }
+.name .ln:nth-child(2) > span { animation-delay: 0.12s; }
+@keyframes rise { to { transform: none; } }
+.hero { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--margin); row-gap: clamp(20px, 3vw, 44px); align-items: start; }
+.hero-grid { display: contents; }
+.hero .name { grid-column: 1 / span 8; grid-row: 1; }
+.hero-left { grid-column: 1 / span 8; grid-row: 2; }
+.role { font-size: var(--d2); margin-bottom: 18px; }
+.lede { font-size: var(--step-lead); line-height: 1.35; max-width: 34ch; margin-bottom: 28px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tabs button { padding: 18px 26px; font-weight: 600; font-size: var(--step-body); background: var(--surface); transition: background-color 0.3s, color 0.3s, transform 0.2s var(--ease); }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.tabs button:hover { transform: translateY(-2px); }
+.portrait { grid-column: 9 / span 4; grid-row: 1 / span 2; align-self: start; aspect-ratio: 1 / 1; background: var(--surface); color: var(--ink); display: block; width: 100%; transition: background-color 0.7s var(--ease); }
+
+/* ---- sections ---- */
+section { padding: 0 var(--margin) var(--gap); }
+.field { background: var(--field); color: var(--field-ink); padding-top: var(--gap); transition: background-color 0.7s var(--ease), color 0.7s var(--ease); }
+h2 { font-size: var(--step-head); margin-bottom: clamp(32px, 4vw, 64px); max-width: 14ch; }
+
+.figures { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--margin); }
+.figure b { display: block; font-family: "Big Shoulders", sans-serif; font-weight: 800; font-size: clamp(88px, 15vw, 260px); line-height: 0.85; letter-spacing: -0.01em; }
+.figure span { display: block; margin-top: 14px; max-width: 24ch; font-size: var(--step-lead); line-height: 1.3; }
+
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--margin); padding: clamp(20px, 2.4vw, 36px) 0; background: transparent; transition: background-color 0.25s, color 0.25s, padding 0.35s var(--ease); align-items: baseline; }
+.rows .row:nth-child(odd) { background: var(--surface); margin: 0 calc(var(--margin) * -1); padding-left: var(--margin); padding-right: var(--margin); }
+.row h3 { grid-column: 1 / span 5; font-size: var(--d2); font-weight: 800; }
+.row p { grid-column: 7 / span 6; font-size: var(--step-lead); line-height: 1.35; }
+.row .when { grid-column: 1 / span 3; font-size: var(--d2); }
+.row .what { grid-column: 4 / span 9; }
+.row .what strong { display: block; font-size: var(--step-lead); font-weight: 600; margin-bottom: 4px; }
+.field .rows .row:nth-child(odd) { background: transparent; margin: 0; padding-left: 0; padding-right: 0; }
+.field .rows .row { border: 0; }
+.field .rows .row + .row { margin-top: 8px; }
+.field .rows .row:nth-child(even) { background: color-mix(in srgb, var(--field-ink) 10%, transparent); margin: 0 calc(var(--margin) * -1); padding-left: var(--margin); padding-right: var(--margin); }
+.field .muted { color: var(--field-muted); }
+
+.sites { display: grid; gap: 40px; }
+.site { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--margin); align-items: center; }
+.card { grid-column: 1 / span 5; aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 24px; color: #fff; font-family: "Public Sans", sans-serif; font-weight: 600; font-size: var(--step-lead); line-height: 1.1; text-decoration: none; }
+.card.flow { background: #04050c; }
+.card.soon { background: var(--surface); color: var(--ink); }
+.site .text { grid-column: 7 / span 6; }
+.site h3 { font-size: var(--d2); margin-bottom: 14px; }
+.site p { margin-bottom: 24px; }
+.btn { display: inline-flex; align-items: center; height: 56px; padding: 0 30px; background: var(--ink); color: var(--bg); font-weight: 600; text-decoration: none; transition: transform 0.2s var(--ease); }
+.btn:hover { transform: translateY(-2px); }
+.badge { display: inline-flex; align-items: center; height: 56px; padding: 0 30px; background: var(--surface); font-weight: 600; }
+
+.close { padding: var(--gap) var(--margin) var(--margin); }
+.close .name { margin-bottom: 20px; }
+.close small { font-size: var(--step-small); }
+
+/* ---- reveals ---- */
+.js .rv { opacity: 0; transform: translateY(26px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0ms); }
+.js .rv.in { opacity: 1; transform: none; }
+.swap { transition: opacity 0.18s; opacity: 0 !important; }
+
+@media (max-width: 900px) {
+  .hero .name, .hero-left, .portrait { grid-column: 1 / -1; grid-row: auto; }
+  .portrait { max-width: 360px; }
+  .mini { display: none; }
+  .row h3, .row p, .row .when, .row .what { grid-column: 1 / -1; }
+  .card, .site .text { grid-column: 1 / -1; }
+  h2 { max-width: none; }
+}
+@media (max-width: 600px) {
+  .figures { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .name .ln > span { animation: none; transform: none; }
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  * { transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="wordmark display" href="#top">D. Marinangeli</a>
+  <div class="mini" role="group" aria-label="Profilo / Profile">
+    <button type="button" data-set-lens="dev" aria-pressed="true" id="mini-dev"></button>
+    <button type="button" data-set-lens="pm" aria-pressed="false" id="mini-pm"></button>
+  </div>
+  <div class="langs" role="group" aria-label="Lingua / Language">
+    <button type="button" data-set-lang="it" aria-pressed="true">IT</button>
+    <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <h1 class="name display fit" id="name" aria-label="Daniele Marinangeli">
+      <span class="ln"><span>Daniele</span></span>
+      <span class="ln"><span>Marinangeli</span></span>
+    </h1>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <p class="role display swap-t" id="role"></p>
+        <p class="lede swap-t" id="lede"></p>
+        <div class="tabs" role="group" aria-label="Profilo / Profile">
+          <button type="button" data-set-lens="dev" aria-pressed="true" id="tab-dev"></button>
+          <button type="button" data-set-lens="pm" aria-pressed="false" id="tab-pm"></button>
+        </div>
+      </div>
+      <svg class="portrait" viewBox="0 0 400 400" role="img" aria-label="Placeholder portrait">
+        <rect width="400" height="400" fill="currentColor" opacity="0.08"/>
+        <circle cx="200" cy="150" r="70" fill="currentColor"/>
+        <path d="M60 400c0-92 62-150 140-150s140 58 140 150z" fill="currentColor"/>
+        <path d="M150 140h100v22a50 50 0 0 1-100 0z" fill="var(--bg)" opacity="0.9"/>
+        <rect x="168" y="150" width="64" height="8" fill="currentColor"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="figures">
+    <div class="figures" id="figures-list"></div>
+  </section>
+
+  <section id="what">
+    <h2 class="display rv swap-t" id="what-h"></h2>
+    <div class="rows" id="what-list"></div>
+  </section>
+
+  <section class="field" id="path">
+    <h2 class="display rv swap-t" id="path-h"></h2>
+    <div class="rows" id="path-list"></div>
+  </section>
+
+  <section id="work" style="padding-top: var(--gap);">
+    <h2 class="display rv" id="work-h"></h2>
+    <p class="rv" id="work-lede" style="margin-bottom: 48px; font-size: var(--step-lead); line-height: 1.35;"></p>
+    <div class="sites" id="sites"></div>
+  </section>
+</main>
+
+<footer class="field close">
+  <h2 class="name display fit" id="name2" aria-hidden="true" style="max-width:none; margin-bottom:20px;">
+    <span class="ln"><span>Daniele</span></span>
+    <span class="ln"><span>Marinangeli</span></span>
+  </h2>
+  <small>© 2026 Daniele Marinangeli</small>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+const T = {
+  it: {
+    title: 'Daniele Marinangeli — Sviluppatore software senior e Technical PM',
+    tab: { dev: 'Sviluppatore software senior', pm: 'Technical Project Manager' },
+    mini: { dev: 'Sviluppatore', pm: 'Technical PM' },
+    role: { dev: 'Sviluppatore software senior', pm: 'Technical Project Manager' },
+    lede: {
+      dev: 'Progetto e sviluppo software industriale in C# e .NET: dal primo driver al collaudo sulla linea di produzione.',
+      pm: 'Guido la divisione che consegna software industriale: fino a dieci progetti in parallelo, un solo team, dai requisiti al post-vendita.'
+    },
+    figures: {
+      dev: [
+        ['10+', 'anni di software industriale in .NET'],
+        ['6', 'paesi in cui ho installato e collaudato impianti'],
+        ['10+', 'anni di assistenza remota a clienti italiani ed esteri']
+      ],
+      pm: [
+        ['~10', 'progetti gestiti in parallelo'],
+        ['3–6', 'persone nel team, in base al carico di lavoro'],
+        ['10+', 'anni al fianco di clienti multinazionali']
+      ]
+    },
+    whatH: { dev: 'Cosa costruisco', pm: 'Come consegno' },
+    what: {
+      dev: [
+        ['Back-end .NET', 'C#, VB .NET, SQL Server ed Entity Framework per sistemi di collaudo automatico e di supervisione.'],
+        ['Driver hardware', 'Scanner, misuratori di potenza, banchi di certificazione elettrica, generatori di tensione.'],
+        ['Assistenza remota', 'Bug complessi e blocchi di produzione, fino al ripristino completo del sistema del cliente.'],
+        ['Front-end e AI', 'Angular (TypeScript) e prototipi Android sviluppati con strumenti di AI; repository su GitHub.'],
+        ['Strumenti', 'Git, Azure DevOps con pipeline CI/CD, Visual Studio; Windows Server, VMware, Citrix.']
+      ],
+      pm: [
+        ['Consegna completa', 'Requisiti, sviluppo, test, rilascio e assistenza post-vendita, con attenzione a qualità e scadenze.'],
+        ['Pianificazione', 'Attività e risorse in un’azienda certificata ISO 9001; sprint e riunioni di progetto.'],
+        ['Tante parti, un progetto', 'Clienti, fornitori, team meccanici e altri gruppi interni, per inserire il software nell’impianto.'],
+        ['Proposte', 'Proposte tecniche e commerciali per nuovi progetti, insieme a qualità, produzione e ingegneria del cliente.'],
+        ['Team e AI', 'Un team back-end e front-end da 3 a 6 persone; strumenti di AI adottati per sviluppo e documentazione.']
+      ]
+    },
+    pathH: { dev: 'Il mio percorso', pm: 'Il mio percorso' },
+    path: {
+      dev: [
+        ['2023 – oggi', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Guido la divisione e resto operativo sul codice: architetture, rilasci e assistenza post-vendita.'],
+        ['2021 – oggi', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Sistemi di collaudo e supervisione, driver hardware, trasferte per installazione e messa in servizio.'],
+        ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Controllo qualità automatico: dall’architettura, hardware compreso, alla messa in servizio all’estero.'],
+        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche', 'Votazione 80/100.']
+      ],
+      pm: [
+        ['2023 – oggi', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Divisione per sistemi di controllo e collaudo automatico: team, pianificazione, proposte e consegna.'],
+        ['2021 – oggi', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Il lavoro tecnico che sostiene la guida: relazione diretta con i clienti multinazionali.'],
+        ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Responsabilità completa dei progetti, spesso con scadenze di produzione strette.'],
+        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche', 'Votazione 80/100.']
+      ]
+    },
+    workH: 'Siti vetrina',
+    workLede: 'Tre siti concept per mostrare la varianza: brief diversi, stili diversi. I marchi sono di fantasia.',
+    sites: [
+      { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Lista d’attesa per un’app di concentrazione, con un fluido WebGL vivo a tutto schermo.', href: 'flowstate/', cta: 'Apri il sito', cls: 'flow' },
+      { name: 'Prodotto 3D', card: 'In arrivo', desc: 'Un oggetto generato interamente da codice, che ruota con lo scroll.', soon: 'In arrivo', cls: 'soon' },
+      { name: 'Ristorante', card: 'In arrivo', desc: 'Sito per un ristorante: menu, ambiente, prenotazione.', soon: 'In arrivo', cls: 'soon' }
+    ]
+  },
+  en: {
+    title: 'Daniele Marinangeli — Senior Software Developer & Technical PM',
+    tab: { dev: 'Senior software developer', pm: 'Technical Project Manager' },
+    mini: { dev: 'Developer', pm: 'Technical PM' },
+    role: { dev: 'Senior software developer', pm: 'Technical Project Manager' },
+    lede: {
+      dev: 'I design and build industrial software in C# and .NET: from the first driver to commissioning on the production line.',
+      pm: 'I lead the division that delivers industrial software: up to ten projects in parallel, one team, from requirements to post-sales support.'
+    },
+    figures: {
+      dev: [
+        ['10+', 'years of industrial software in .NET'],
+        ['6', 'countries where I installed and tested systems'],
+        ['10+', 'years of remote support for national and international clients']
+      ],
+      pm: [
+        ['~10', 'projects run in parallel'],
+        ['3–6', 'people in the team, depending on workload'],
+        ['10+', 'years working alongside multinational clients']
+      ]
+    },
+    whatH: { dev: 'What I build', pm: 'How I deliver' },
+    what: {
+      dev: [
+        ['.NET back-end', 'C#, VB .NET, SQL Server and Entity Framework for automated testing and supervisory systems.'],
+        ['Hardware drivers', 'Scanners, power meters, electrical certification test benches, voltage generators.'],
+        ['Remote support', 'Complex bugs and blocking issues, through to the full recovery of the customer’s system.'],
+        ['Front-end and AI', 'Angular (TypeScript) and Android prototypes built with AI tools; repositories on GitHub.'],
+        ['Tooling', 'Git, Azure DevOps with CI/CD pipelines, Visual Studio; Windows Server, VMware, Citrix.']
+      ],
+      pm: [
+        ['End-to-end delivery', 'Requirements, development, testing, release and post-sales support, with a focus on quality and deadlines.'],
+        ['Planning', 'Activities and resources in an ISO 9001-certified company; sprints and project meetings.'],
+        ['Many parties, one project', 'Clients, suppliers, mechanical teams and other internal groups, to fit the software into the plant.'],
+        ['Proposals', 'Technical and commercial proposals for new projects, with the client’s quality, production and engineering.'],
+        ['Team and AI', 'A back-end and front-end team of 3 to 6 people; AI tools adopted for development and documentation.']
+      ]
+    },
+    pathH: { dev: 'My path', pm: 'My path' },
+    path: {
+      dev: [
+        ['2023 – present', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'I lead the division and stay hands-on in the code: architectures, releases and post-sales support.'],
+        ['2021 – present', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Testing and supervisory systems, hardware drivers, travel for installation and commissioning.'],
+        ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Automatic quality control: from architecture, hardware included, to commissioning abroad.'],
+        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche', 'Grade 80/100.']
+      ],
+      pm: [
+        ['2023 – present', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Division for automated control and testing systems: team, planning, proposals and delivery.'],
+        ['2021 – present', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'The technical work behind the leadership: a direct relationship with multinational clients.'],
+        ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Full project ownership, often under tight production deadlines.'],
+        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche', 'Grade 80/100.']
+      ]
+    },
+    workH: 'Showcase sites',
+    workLede: 'Three concept sites to show range: different briefs, different looks. The brands are fictional.',
+    sites: [
+      { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Waitlist for a focus app, with a live full-screen WebGL fluid.', href: 'flowstate/', cta: 'Open the site', cls: 'flow' },
+      { name: '3D product', card: 'Coming soon', desc: 'An object generated entirely from code, rotating with the scroll.', soon: 'Coming soon', cls: 'soon' },
+      { name: 'Restaurant', card: 'Coming soon', desc: 'A restaurant site: menu, atmosphere, booking.', soon: 'Coming soon', cls: 'soon' }
+    ]
+  }
+};
+
+const $ = id => document.getElementById(id);
+let lang = 'it', lens = 'dev';
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+function render() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dataset.lens = lens;
+  document.title = t.title;
+  $('tab-dev').textContent = t.tab.dev; $('tab-pm').textContent = t.tab.pm;
+  $('mini-dev').textContent = t.mini.dev; $('mini-pm').textContent = t.mini.pm;
+  document.querySelectorAll('[data-set-lens]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLens === lens)));
+  document.querySelectorAll('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+  $('role').textContent = t.role[lens];
+  $('lede').textContent = t.lede[lens];
+  $('figures-list').innerHTML = t.figures[lens].map(f => `<div class="figure rv"><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');
+  $('what-h').textContent = t.whatH[lens];
+  $('what-list').innerHTML = t.what[lens].map(r => `<div class="row rv"><h3 class="display">${r[0]}</h3><p>${r[1]}</p></div>`).join('');
+  $('path-h').textContent = t.pathH[lens];
+  $('path-list').innerHTML = t.path[lens].map(r => `<div class="row rv"><div class="when display">${r[0]}</div><div class="what"><strong>${r[1]}</strong><span class="muted">${r[2]}</span><p style="margin-top:8px">${r[3]}</p></div></div>`).join('');
+  $('work-h').textContent = t.workH;
+  $('work-lede').textContent = t.workLede;
+  $('sites').innerHTML = t.sites.map(s => `<div class="site rv"><${s.href ? 'a href="' + s.href + '"' : 'div'} class="card ${s.cls}" ${s.href ? 'aria-label="' + s.name + '"' : ''}>${s.card}</${s.href ? 'a' : 'div'}><div class="text"><h3 class="display">${s.name}</h3><p>${s.desc}</p>${s.href ? '<a class="btn" href="' + s.href + '">' + s.cta + '</a>' : '<span class="badge">' + s.soon + '</span>'}</div></div>`).join('');
+  observe();
+}
+
+function swapRender() {
+  if (reduce) { render(); return; }
+  const parts = document.querySelectorAll('.swap-t, .figures, .rows');
+  parts.forEach(p => p.classList.add('swap'));
+  setTimeout(() => { render(); parts.forEach(p => p.classList.remove('swap')); }, 190);
+}
+
+function setLens(l, push) {
+  if (l === lens) return;
+  lens = l; store('lens', l);
+  if (push) history.replaceState(null, '', '#' + l);
+  swapRender();
+}
+function setLang(l) {
+  if (l === lang) return;
+  lang = l; store('lang', l);
+  swapRender();
+}
+
+let io;
+function observe() {
+  if (io) io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach((el, i) => { el.style.setProperty('--d', (i % 5) * 70 + 'ms'); io.observe(el); });
+}
+
+function fit(el) {
+  el.style.fontSize = '100px';
+  const width = el.clientWidth;
+  let max = 0;
+  el.querySelectorAll('.ln').forEach(l => { max = Math.max(max, l.scrollWidth); });
+  if (max && width) el.style.fontSize = (100 * width / max) + 'px';
+}
+function fitAll() { document.querySelectorAll('.fit').forEach(fit); }
+
+document.addEventListener('click', e => {
+  const lb = e.target.closest('[data-set-lens]');
+  if (lb) setLens(lb.dataset.setLens, true);
+  const gb = e.target.closest('[data-set-lang]');
+  if (gb) setLang(gb.dataset.setLang);
+});
+
+(function init() {
+  const hash = location.hash.replace('#', '');
+  lens = (hash === 'pm' || hash === 'dev') ? hash : (load('lens') === 'pm' ? 'pm' : 'dev');
+  const saved = load('lang');
+  lang = (saved === 'it' || saved === 'en') ? saved : ((navigator.language || 'it').toLowerCase().startsWith('it') ? 'it' : 'en');
+  render();
+  fitAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener('resize', fitAll);
+  window.addEventListener('hashchange', () => {
+    const h = location.hash.replace('#', '');
+    if (h === 'pm' || h === 'dev') setLens(h, false);
+  });
+  // the closing name animates in when it arrives
+  const fn = $('name2');
+  const nio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fn.classList.add('anim'); nio.disconnect(); } }), { threshold: 0.3 });
+  nio.observe(fn);
+})();
+</script>
+<style>
+.close .name .ln > span { animation: none; transform: translateY(105%); transition: transform 1.1s var(--ease); }
+.close .name.anim .ln > span { transform: none; }
+.close .name.anim .ln:nth-child(2) > span { transition-delay: 0.12s; }
+@media (prefers-reduced-motion: reduce) { .close .name .ln > span { transform: none; } }
+</style>
+</body>
+</html>
