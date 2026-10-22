@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il Faro di Valdemar — un idle tower defense dark fantasy</title>
+<meta name="description" content="Il Faro di Valdemar è un idle tower defense dark fantasy per Android: sei Aldric, ultimo Guardiano della Veglia, e tieni accesa l'ultima luce del regno contro la Frattura.">
+<meta property="og:title" content="Il Faro di Valdemar">
+<meta property="og:description" content="Una luce, una notte per volta, contro la Frattura.">
+<meta property="og:image" content="img/apertura.webp">
+<link rel="icon" href="img/emblema-faro.webp" type="image/webp">
+<link rel="stylesheet" href="../assets/fonts.css">
+<style>
+:root {
+  --ground: #0b0d14;
+  --surface: #11151f;
+  --surface-2: #1a2030;
+  --ink: #e4decf;
+  --muted: #b4bbce;
+  --accent: #4fd6e3;
+  --accent-ink: #0b0d14;
+  --margin: clamp(16px, 2.2vw, 32px);
+  --gap: clamp(88px, 11vw, 176px);
+  --body: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+  --lead: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  --head: clamp(2.5rem, 1.4rem + 4.4vw, 5.5rem);
+  --sub: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { margin: 0; box-sizing: border-box; }
+html { background: var(--ground); scroll-behavior: smooth; }
+body { font-family: "Source Serif 4", Georgia, serif; font-size: var(--body); line-height: 1.6; color: var(--ink); background: var(--ground); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 0; background: none; }
+img { display: block; max-width: 100%; height: auto; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.d { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; letter-spacing: -0.02em; line-height: 0.95; }
+p { max-width: 62ch; }
+p + p { margin-top: 1.1em; }
+html[lang="it"] [lang="en"], html[lang="en"] [lang="it"] { display: none; }
+
+.frame { width: calc(100% - 2 * var(--margin)); max-width: 88rem; margin: 0 auto; }
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 32px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; transition: transform 0.2s var(--ease), background-color 0.2s; }
+.btn:hover { transform: translateY(-2px); background: #8be6ee; }
+.btn:active { transform: none; }
+
+/* bar */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0; }
+.wordmark { font-size: var(--lead); text-decoration: none; }
+.links { display: flex; align-items: center; gap: clamp(14px, 2.6vw, 36px); }
+.links a { text-decoration: none; }
+.links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.langs { display: flex; gap: 6px; }
+.langs button { padding: 8px 14px; font-weight: 600; font-size: 1rem; background: var(--surface-2); transition: background-color 0.3s, color 0.3s; }
+.langs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+/* hero */
+.hero { padding-top: clamp(24px, 6vw, 80px); }
+h1 { font-size: clamp(3.4rem, 12.5vw, 11.5rem); }
+.hero-low { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--margin); align-items: end; margin-top: clamp(28px, 4vw, 56px); }
+.lede { font-size: var(--lead); line-height: 1.3; max-width: 36ch; }
+.hero-low .btn { margin-top: 28px; }
+.facts { list-style: none; padding: 0; font-size: var(--body); color: var(--muted); display: grid; gap: 6px; justify-self: end; max-width: 24rem; }
+.facts li { padding-left: 0; }
+.hero-pic { margin-top: clamp(36px, 5vw, 72px); overflow: hidden; background: var(--surface); }
+.hero-pic img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* sections */
+section { padding-top: var(--gap); }
+h2 { font-size: var(--head); max-width: 20ch; }
+.split { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(28px, 6vw, 112px); align-items: start; }
+.split.flip { grid-template-columns: 7fr 5fr; }
+.split.flip .pic { order: 2; }
+.split .text { padding-top: 8px; }
+.split h2 { margin-bottom: clamp(24px, 3vw, 44px); }
+.pic img { width: 100%; }
+.pic figcaption { margin-top: 14px; color: var(--muted); font-size: 1rem; max-width: 46ch; }
+.statement { font-size: var(--lead); line-height: 1.3; color: var(--ink); margin-top: 1.2em; }
+
+/* the roll */
+.field { background: var(--surface); margin-top: var(--gap); padding: clamp(56px, 8vw, 120px) 0; }
+.field section { padding-top: 0; }
+.roll-head { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 6vw, 112px); align-items: end; }
+.roll-head .aside { color: var(--muted); }
+.roll { display: grid; grid-template-columns: 4fr 4fr 4fr; gap: clamp(24px, 4vw, 64px); margin-top: clamp(40px, 5vw, 72px); align-items: start; }
+.names { display: grid; gap: 4px; }
+.names button { text-align: left; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: var(--lead); line-height: 1.1; padding: 14px 18px; background: transparent; color: var(--muted); transition: background-color 0.25s, color 0.25s, transform 0.25s var(--ease); }
+.names button:hover { color: var(--ink); transform: translateX(6px); }
+.names button[aria-selected="true"] { background: var(--ink); color: var(--ground); }
+.portrait { background: var(--ground); }
+.portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.bio h3 { font-size: var(--sub); }
+.bio .where { margin-top: 10px; color: var(--muted); }
+.bio p.story { margin-top: 24px; }
+.panel[hidden] { display: none; }
+
+/* the game */
+.numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--margin); margin-top: clamp(40px, 5vw, 72px); }
+.numbers div { background: var(--surface); padding: clamp(20px, 2.4vw, 36px); }
+.numbers b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: var(--head); line-height: 0.9; letter-spacing: -0.03em; color: var(--accent); }
+.numbers span { display: block; margin-top: 12px; color: var(--ink); }
+.how { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px) clamp(28px, 6vw, 112px); margin-top: clamp(56px, 7vw, 112px); }
+.how h3 { font-size: var(--sub); margin-bottom: 14px; }
+
+/* footer */
+footer { margin-top: var(--gap); padding: clamp(40px, 6vw, 88px) 0 40px; background: var(--surface); }
+.bigname { font-size: clamp(3rem, 12.5vw, 12rem); }
+footer small { display: block; margin-top: 28px; color: var(--muted); font-size: 1rem; max-width: 72ch; }
+footer small + small { margin-top: 10px; }
+
+/* motion */
+.js .rv { opacity: 0; transform: translateY(24px); }
+.js .rv.in { opacity: 1; transform: none; transition: opacity 0.9s var(--ease) var(--d, 0s), transform 0.9s var(--ease) var(--d, 0s); }
+.hero-pic img { transform: scale(1.06); transition: transform 2.4s var(--ease); }
+.hero-pic.in img { transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rv, .js .rv.in { opacity: 1; transform: none; transition: none; }
+  .hero-pic img, .hero-pic.in img { transform: none; transition: none; }
+}
+
+@media (max-width: 900px) {
+  .links a { display: none; }
+  .hero-low, .split, .split.flip, .roll-head, .how { grid-template-columns: 1fr; }
+  .split .pic, .split.flip .pic { order: 2; }
+  .facts { justify-self: start; }
+  .roll { grid-template-columns: 1fr; }
+  .names { grid-template-columns: 1fr 1fr; }
+  .names button { padding: 12px 14px; }
+  .numbers { grid-template-columns: 1fr 1fr; }
+  .hero-pic img { aspect-ratio: 4 / 3; }
+}
+</style>
+</head>
+<body>
+<header class="frame bar">
+  <a class="wordmark d" href="#top"><span lang="it">Il Faro di Valdemar</span><span lang="en">The Beacon of Valdemar</span></a>
+  <nav class="links" aria-label="Sezioni">
+    <a href="#storia"><span lang="it">La storia</span><span lang="en">The story</span></a>
+    <a href="#guardiani"><span lang="it">I Guardiani</span><span lang="en">The Guardians</span></a>
+    <a href="#faro"><span lang="it">Il Faro</span><span lang="en">The Beacon</span></a>
+    <a href="#gioco"><span lang="it">Il gioco</span><span lang="en">The game</span></a>
+    <div class="langs" role="group" aria-label="Lingua / Language">
+      <button type="button" data-set-lang="it" aria-pressed="true">IT</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+<div class="frame hero">
+  <h1 class="d"><span lang="it">Il Faro di Valdemar</span><span lang="en">The Beacon of Valdemar</span></h1>
+  <div class="hero-low">
+    <div>
+      <p class="lede rv"><span lang="it">Un idle tower defense dark fantasy. Tieni accesa l'ultima luce del regno, una notte alla volta.</span><span lang="en">A dark fantasy idle tower defence. Keep the kingdom's last light burning, one night at a time.</span></p>
+      <a class="btn rv" style="--d:.08s" href="#storia"><span lang="it">Leggi la storia</span><span lang="en">Read the story</span></a>
+    </div>
+    <ul class="facts rv" style="--d:.16s">
+      <li><span lang="it">Per Android, in arrivo</span><span lang="en">For Android, coming soon</span></li>
+      <li><span lang="it">Si gioca offline, nessun account per cominciare</span><span lang="en">Plays offline, no account needed to start</span></li>
+      <li><span lang="it">Otto lingue</span><span lang="en">Eight languages</span></li>
+    </ul>
+  </div>
+  <div class="hero-pic rv">
+    <img src="img/apertura.webp" width="1024" height="572" alt="Un faro dalla luce ciano su una scogliera buia, con un fulmine viola nel cielo e una massa di creature corrotte che si avvicina da destra." data-alt-en="A cyan-lit lighthouse on a dark cliff, a purple lightning bolt in the sky and a mass of corrupted creatures closing in from the right.">
+  </div>
+</div>
+
+<section id="storia" class="frame">
+  <div class="split">
+    <figure class="pic rv">
+      <img src="img/emblema-faro.webp" width="1024" height="1024" loading="lazy" decoding="async" alt="Una torre-faro di pietra con una fiamma ciano in cima e un fulmine viola che taglia il cielo scuro." data-alt-en="A stone lighthouse with a cyan flame on top and a purple lightning bolt cutting across the dark sky.">
+      <figcaption><span lang="it">Il Faro, l'ultimo ancora acceso.</span><span lang="en">The Beacon, the last one still lit.</span></figcaption>
+    </figure>
+    <div class="text">
+      <h2 class="d rv"><span lang="it">Un regno sopra una ferita</span><span lang="en">A kingdom upon a wound</span></h2>
+      <div lang="it" class="rv" style="--d:.08s">
+        <p>Secoli fa i Maghi dell'Alba trovarono la Frattura: una lacerazione nella realtà da cui filtrava qualcosa che non aveva nome e non aveva forma. Non riuscirono a chiuderla. Riuscirono a imprigionarla, sigillandola sotto una rete di nodi di potere che attraversava il continente.</p>
+        <p>Su ogni nodo eressero un Faro, una torre alimentata da un frammento di Cristallo Primordiale. Finché i Fari restavano accesi, il sigillo teneva. Per mantenerli accesi nacque la Veglia: non guerrieri e non maghi, ma guardiani, gente che passava la vita in cima a una torre a tenere viva una luce.</p>
+        <p>Poi il sigillo si è incrinato. Nei diari della Veglia il primo segno è una riga scritta a mano tremante: «stanotte il Nucleo ha esitato». I Fari sono caduti uno a uno.</p>
+        <p class="statement">Ne resta uno.</p>
+      </div>
+      <div lang="en" class="rv" style="--d:.08s">
+        <p>Centuries ago the Dawn Mages found the Fracture: a tear in reality through which something with no name and no shape was seeping. They could not close it. They could only imprison it, sealing it beneath a web of power nodes that ran across the continent.</p>
+        <p>On every node they raised a Beacon, a tower fed by a shard of Primordial Crystal. As long as the Beacons burned, the seal held. To keep them burning the Watch was born: not warriors, not mages, but guardians, people who spent their lives at the top of a tower keeping a light alive.</p>
+        <p>Then the seal cracked. In the Watch's diaries the first sign is a line in a trembling hand: “tonight the Core hesitated.” The Beacons fell, one by one.</p>
+        <p class="statement">One remains.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <div class="split flip">
+    <figure class="pic rv">
+      <img src="img/tavola-campo-di-battaglia.webp" width="900" height="900" loading="lazy" decoding="async" alt="Vista dall'alto di un altopiano di pietra crepata con un grande cerchio al centro, lastricati agli angoli e qualche crepa viola ai bordi." data-alt-en="Top-down view of a cracked stone plateau with a large circle at the centre, paved paths at the corners and a few purple cracks at the edges.">
+      <figcaption><span lang="it">Il campo di battaglia visto dall'alto: i nemici arrivano da ogni lato.</span><span lang="en">The battlefield from above: the enemies come from every side.</span></figcaption>
+    </figure>
+    <div class="text">
+      <h2 class="d rv"><span lang="it">Ogni notte ricomincia</span><span lang="en">Every night begins again</span></h2>
+      <div lang="it" class="rv" style="--d:.08s">
+        <p>Aldric è l'ultimo Guardiano della Veglia. Non è un eroe prescelto e non è un signore oscuro: è un uomo di mezza età, stanco, che ha ereditato un turno di guardia da cui nessuno lo ha mai sollevato. Tiene l'ultimo Faro perché è l'unico rimasto a sapere come si fa.</p>
+        <p>Ogni notte la Frattura riscrive la realtà attorno alla torre. All'alba le pietre che ha posato non ci sono più, e i nemici tornano: contadini, morti, pietre, tutto ciò che la Frattura ha preso.</p>
+        <p class="statement">Ma Aldric ricorda. Dove cedeva il muro, quale runa ha funzionato, il volto di chi ha dovuto fermare.</p>
+        <p>Per questo la torre ricomincia da zero a ogni partita, e ciò che impari resta.</p>
+      </div>
+      <div lang="en" class="rv" style="--d:.08s">
+        <p>Aldric is the last Guardian of the Watch. He is no chosen hero and no dark lord: he is a tired, middle-aged man who inherited a watch no one ever relieved him from. He keeps the last Beacon because he is the only one left who knows how.</p>
+        <p>Every night the Fracture rewrites reality around the tower. By dawn the stones he laid are gone, and the enemies return: farmers, the dead, stones, everything the Fracture has taken.</p>
+        <p class="statement">But Aldric remembers. Where the wall gave way, which rune worked, the face of whoever he had to stop.</p>
+        <p>That is why the tower starts from nothing every run, and what you learn stays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="field" id="guardiani">
+  <section class="frame">
+    <div class="roll-head">
+      <h2 class="d rv"><span lang="it">I Guardiani della Veglia</span><span lang="en">The Guardians of the Watch</span></h2>
+      <p class="aside rv" style="--d:.08s"><span lang="it">Ogni boss è il Guardiano di un Faro caduto. Hanno tenuto la loro torre finché hanno potuto, poi la Frattura li ha presi, e ora usano contro Aldric le stesse tecniche della Veglia. Il più antico di loro non compare in questa pagina.</span><span lang="en">Every boss is the Guardian of a fallen Beacon. They held their tower as long as they could, then the Fracture took them, and now they turn the Watch's own techniques against Aldric. The oldest of them does not appear on this page.</span></p>
+    </div>
+    <div class="roll rv">
+      <div class="names" role="tablist" aria-label="Guardiani / Guardians">
+        <button type="button" role="tab" id="t-aldric" aria-controls="p-aldric" aria-selected="true">Aldric</button>
+        <button type="button" role="tab" id="t-brenna" aria-controls="p-brenna" aria-selected="false" tabindex="-1"><span lang="it">Il Guardiano di Brenna</span><span lang="en">The Guardian of Brenna</span></button>
+        <button type="button" role="tab" id="t-maren" aria-controls="p-maren" aria-selected="false" tabindex="-1"><span lang="it">Maren la Sorda</span><span lang="en">Maren the Deaf</span></button>
+        <button type="button" role="tab" id="t-cartografo" aria-controls="p-cartografo" aria-selected="false" tabindex="-1"><span lang="it">Il Cartografo</span><span lang="en">The Cartographer</span></button>
+        <button type="button" role="tab" id="t-yune" aria-controls="p-yune" aria-selected="false" tabindex="-1"><span lang="it">Sorella Yune</span><span lang="en">Sister Yune</span></button>
+      </div>
+      <div class="portrait">
+        <img id="portrait" src="img/personaggio-aldric.webp" width="1024" height="1280" alt="">
+      </div>
+      <div class="bio">
+        <div class="panel" role="tabpanel" id="p-aldric" aria-labelledby="t-aldric" data-img="aldric" data-alt-it="Un uomo stanco in mantello blu e armatura leggera regge una lanterna dalla luce ciano nella nebbia notturna." data-alt-en="A weary man in a blue cloak and light armour holds a cyan-glowing lantern in the night mist.">
+          <h3 class="d">Aldric</h3>
+          <p class="where"><span lang="it">Ultimo Guardiano della Veglia · il Faro di Valdemar</span><span lang="en">Last Guardian of the Watch · the Beacon of Valdemar</span></p>
+          <p class="story"><span lang="it">L'ultimo rimasto. Porta una lanterna ciano e un turno di guardia che nessuno ha mai terminato. Si ricorda tutto, ed è per questo che tiene ancora accesa la luce.</span><span lang="en">The last one left. He carries a cyan lantern and a watch no one ever finished. He remembers everything, and that is why the light is still burning.</span></p>
+        </div>
+        <div class="panel" role="tabpanel" id="p-brenna" aria-labelledby="t-brenna" data-img="guardiano-di-brenna" data-alt-it="Un guardiano mascherato in armatura consunta con cristalli e vene viola, una lanterna in mano e fumo viola attorno ai piedi." data-alt-en="A masked guardian in worn armour with purple crystals and veins, a lantern in hand and purple smoke around the feet." hidden>
+          <h3 class="d"><span lang="it">Il Guardiano di Brenna</span><span lang="en">The Guardian of Brenna</span></h3>
+          <p class="where"><span lang="it">Faro di Brenna</span><span lang="en">Beacon of Brenna</span></p>
+          <p class="story"><span lang="it">Nessuno sa chi fosse. Di lui non resta un nome, solo la data. È il primo che si incontra, e insegna che i Guardiani caduti lasciano pagine di diario.</span><span lang="en">No one knows who he was. No name survives, only a date. He is the first you meet, and he teaches you that the fallen Guardians leave diary pages behind.</span></p>
+        </div>
+        <div class="panel" role="tabpanel" id="p-maren" aria-labelledby="t-maren" data-img="maren-la-sorda" data-alt-it="Una figura in armatura e mantello chiari avvolta da fumo bianco, con una campanella e un bastone-torcia, cristalli viola sul petto." data-alt-en="A figure in pale armour and cloak wreathed in white smoke, holding a small bell and a torch-staff, purple crystals on the chest." hidden>
+          <h3 class="d"><span lang="it">Maren la Sorda</span><span lang="en">Maren the Deaf</span></h3>
+          <p class="where"><span lang="it">Faro di Corvath</span><span lang="en">Beacon of Corvath</span></p>
+          <p class="story"><span lang="it">Smise di sentire il Nucleo prima di chiunque altro. Combatte avvolta da un fumo bianco, con la campana della Veglia e una torcia in cima a un bastone.</span><span lang="en">She stopped hearing the Core before anyone else did. She fights wreathed in white smoke, with the Watch's bell and a torch at the end of a staff.</span></p>
+        </div>
+        <div class="panel" role="tabpanel" id="p-cartografo" aria-labelledby="t-cartografo" data-img="il-cartografo" data-alt-it="Un uomo con corona di cristalli viola, armatura dorata e logora, borsa di cuoio e mappe strappate, regge un astrolabio luminoso." data-alt-en="A man with a crown of purple crystals, worn golden armour, a leather satchel and torn maps, holding a glowing astrolabe." hidden>
+          <h3 class="d"><span lang="it">Il Cartografo</span><span lang="en">The Cartographer</span></h3>
+          <p class="where"><span lang="it">Faro di Ilse</span><span lang="en">Beacon of Ilse</span></p>
+          <p class="story"><span lang="it">Cercò di mappare la Frattura. La mappò troppo bene. Porta ancora un astrolabio e i fogli strappati di mappe che non finiscono mai.</span><span lang="en">He tried to map the Fracture. He mapped it too well. He still carries an astrolabe and the torn sheets of maps that never end.</span></p>
+        </div>
+        <div class="panel" role="tabpanel" id="p-yune" aria-labelledby="t-yune" data-img="sorella-yune" data-alt-it="Una figura incappucciata in tunica rosso scuro con una grande lama di cristallo viola luminoso sul davanti, mani giunte." data-alt-en="A hooded figure in a dark red robe with a large glowing purple crystal blade down the front, hands clasped." hidden>
+          <h3 class="d"><span lang="it">Sorella Yune</span><span lang="en">Sister Yune</span></h3>
+          <p class="where"><span lang="it">Faro del Guado</span><span lang="en">Beacon of the Ford</span></p>
+          <p class="story"><span lang="it">Fece entrare qualcuno. Chi, e perché, si legge un frammento alla volta nelle pagine del suo diario.</span><span lang="en">She let someone in. Who, and why, is read one fragment at a time in the pages of her diary.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="faro" class="frame">
+  <div class="roll-head">
+    <h2 class="d rv"><span lang="it">Dieci volti per un Faro</span><span lang="en">Ten faces for one Beacon</span></h2>
+    <p class="aside rv" style="--d:.08s"><span lang="it">La torre ricomincia in rovina e cresce durante la notte. Dieci livelli, ognuno un cambiamento vero e non una percentuale: dal moncone con una fiamma fragile fino al Faro di cristallo.</span><span lang="en">The tower starts in ruin and grows through the night. Ten tiers, each a real change and not a percentage: from a stump with a fragile flame to the Beacon of crystal.</span></p>
+  </div>
+  <figure class="pic rv" style="margin-top: clamp(32px, 4vw, 56px)">
+    <img src="img/tavola-evoluzione-del-faro.webp" width="1600" height="1067" loading="lazy" decoding="async" alt="Dieci torri in due file, dalla più rovinata e spoglia alla più alta, con cristalli ciano sempre più estesi." data-alt-en="Ten towers in two rows, from the most ruined and bare to the tallest, with ever-larger cyan crystals.">
+    <figcaption><span lang="it">I dieci livelli del Faro, dalla rovina al cristallo.</span><span lang="en">The Beacon's ten tiers, from ruin to crystal.</span></figcaption>
+  </figure>
+</section>
+
+<section class="frame">
+  <div class="split flip">
+    <figure class="pic rv">
+      <img src="img/tavola-torri-alleate.webp" width="1600" height="1067" loading="lazy" decoding="async" alt="Sei strutture in due file: torre dell'arciere, braciere, mortaio, cristallo, baluardo con scudo e un cumulo di macerie." data-alt-en="Six structures in two rows: archer tower, brazier, mortar, crystal, shield bulwark and a pile of rubble.">
+      <figcaption><span lang="it">Le torri alleate e, in basso a destra, le macerie di una torre caduta.</span><span lang="en">The allied towers and, bottom right, the rubble of a fallen one.</span></figcaption>
+    </figure>
+    <div class="text">
+      <h2 class="d rv"><span lang="it">Non resti solo a lungo</span><span lang="en">You are not alone for long</span></h2>
+      <p class="rv" style="--d:.08s"><span lang="it">Più scendi nel buio, più torri alleate si alzano intorno al Faro: un arciere, un mortaio, un cristallo di supporto, un braciere di gelo, un baluardo. Le compri con le gemme, le rinforzi con l'oro finché dura la notte. Se una cade, restano le macerie, in attesa di essere ricostruite.</span><span lang="en">The deeper you go into the dark, the more allied towers rise around the Beacon: an archer, a mortar, a support crystal, a frost brazier, a bulwark. You buy them with gems and reinforce them with gold while the night lasts. If one falls, its rubble stays, waiting to be rebuilt.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="gioco" class="frame">
+  <h2 class="d rv"><span lang="it">Una luce, una notte per volta</span><span lang="en">One light, one night at a time</span></h2>
+  <div class="numbers rv">
+    <div><b>200</b><span lang="it">ondate di campagna</span><span lang="en">campaign waves</span></div>
+    <div><b>27</b><span lang="it">potenziamenti permanenti</span><span lang="en">permanent upgrades</span></div>
+    <div><b>10</b><span lang="it">livelli del Faro</span><span lang="en">Beacon tiers</span></div>
+    <div><b>8</b><span lang="it">abilità da pescare</span><span lang="en">abilities to draw</span></div>
+  </div>
+  <div class="how">
+    <div class="rv">
+      <h3 class="d"><span lang="it">Difendi la notte</span><span lang="en">Defend the night</span></h3>
+      <p><span lang="it">Le ondate escono dal buio e convergono sul tuo Faro. Spara da solo: il tuo compito è decidere cosa diventa. Ogni notte finisce allo stesso modo, all'alba le pietre tornano dov'erano, e tu no.</span><span lang="en">Waves come out of the dark and converge on your Beacon. It fires on its own: your job is to decide what it becomes. Every night ends the same way: at dawn the stones are back where they started, and you are not.</span></p>
+    </div>
+    <div class="rv" style="--d:.08s">
+      <h3 class="d"><span lang="it">Costruisci fra una partita e l'altra</span><span lang="en">Build across runs</span></h3>
+      <p><span lang="it">Le gemme guadagnate nel buio comprano potenziamenti permanenti: danno, cadenza, armatura, portata, fortuna. Ventisette passivi su sei rami, e il muro contro cui continuavi a sbattere comincia a spostarsi.</span><span lang="en">Gems earned in the dark buy permanent upgrades: damage, cadence, armour, range, fortune. Twenty-seven passives across six branches, and the wall you kept hitting starts moving.</span></p>
+    </div>
+    <div class="rv">
+      <h3 class="d"><span lang="it">Scegli sotto pressione</span><span lang="en">Choose under pressure</span></h3>
+      <p><span lang="it">Ogni poche ondate il gioco si ferma e ti offre tre carte: il danno, la cura, o l'abilità che non ti è mai uscita. Meteore, fulmini a catena, un muro di ghiaccio, una guardia spettrale. Due partite non si somigliano mai.</span><span lang="en">Every few waves the game stops and offers you three cards: the damage, the healing, or the ability you have never drawn. Meteors, chain lightning, an ice wall, a spectral guardian. No two runs are alike.</span></p>
+    </div>
+    <div class="rv" style="--d:.08s">
+      <h3 class="d"><span lang="it">Continua quando non giochi</span><span lang="en">It keeps working while you do not</span></h3>
+      <p><span lang="it">L'Avamposto raccoglie gemme mentre l'app è chiusa. Torna e trova qualcosa. Dopo l'ondata 200 comincia la Veglia Eterna: niente più pagine, solo quanto lontano arrivi, e il fatto che domani puoi andare più in là.</span><span lang="en">The Outpost gathers gems while the app is closed. Come back to something. After wave 200 comes the Eternal Vigil: no more pages, only how far you get, and the fact that you can go further tomorrow.</span></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="frame">
+    <div class="bigname d" aria-hidden="true"><span lang="it">Il Faro di Valdemar</span><span lang="en">The Beacon of Valdemar</span></div>
+    <small><span lang="it">Un gioco di Daniele Marinangeli, DanMar Solution. Le illustrazioni sono originali del gioco e sono state realizzate con l'aiuto di strumenti di intelligenza artificiale. <a href="../">Torna al portfolio</a>.</span><span lang="en">A game by Daniele Marinangeli, DanMar Solution. The illustrations are original to the game and were made with the help of AI tools. <a href="../">Back to the portfolio</a>.</span></small>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, lang = 'it';
+  try { var s = localStorage.getItem('valdemar-lang'); if (s === 'en' || s === 'it') lang = s; } catch (e) {}
+  root.classList.add('js');
+
+  function applyLang(l) {
+    lang = l; root.lang = l;
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === l)); });
+    document.querySelectorAll('img[data-alt-en]').forEach(function (im) {
+      if (!im.dataset.altIt) im.dataset.altIt = im.alt;
+      im.alt = l === 'en' ? im.dataset.altEn : im.dataset.altIt;
+    });
+    document.title = l === 'en' ? 'The Beacon of Valdemar — a dark fantasy idle tower defence' : 'Il Faro di Valdemar — un idle tower defense dark fantasy';
+    var cur = document.querySelector('.names [aria-selected="true"]');
+    if (cur) show(cur.id.slice(2), false);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-set-lang]');
+    if (!b) return;
+    applyLang(b.dataset.setLang);
+    try { localStorage.setItem('valdemar-lang', b.dataset.setLang); } catch (err) {}
+  });
+
+  // the roll of the Watch
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.names [role="tab"]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  var portrait = document.getElementById('portrait');
+  function show(id, focus) {
+    tabs.forEach(function (t) { var on = t.id === 't-' + id; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+    panels.forEach(function (p) {
+      var on = p.id === 'p-' + id; p.hidden = !on;
+      if (on) { portrait.src = 'img/personaggio-' + p.dataset.img + '.webp'; portrait.alt = lang === 'en' ? p.dataset.altEn : p.dataset.altIt; }
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.id.slice(2), false); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (!n) return;
+      e.preventDefault();
+      show(tabs[(i + n + tabs.length) % tabs.length].id.slice(2), true);
+    });
+  });
+
+  applyLang(lang);
+
+  // entrances
+  var els = document.querySelectorAll('.rv, .hero-pic');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+})();
+</script>
+</body>
+</html>
