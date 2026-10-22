@@ -4,7 +4,9 @@ Personal portfolio of Daniele Marinangeli, plus showcase sites.
 
 - `/` portfolio (IT/EN, two lenses: senior software developer and technical project manager)
 - `/flowstate/` showcase: SaaS waitlist with a live WebGL fluid
-- more showcases to come
+- `/ombra/` showcase: a perfume bottle generated in code, scroll-driven camera
+- `/ombra-b/` showcase: a carafe rebuilt in code with img2threejs from a CC0 museum photograph
+- `/osteria/` showcase: a fictional trattoria with an order pad that adds up the bill
 
 Everything is static and self-contained: no CDN, no external images, fonts and libraries are
 vendored under `assets/`. Preview locally with:

@@ -97,6 +97,8 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(32px, 4vw, 64px); max-wid
 .card { grid-column: 1 / span 5; aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 24px; color: #fff; font-family: "Public Sans", sans-serif; font-weight: 600; font-size: var(--step-lead); line-height: 1.1; text-decoration: none; }
 .card.flow { background: #04050c; }
 .card.soon { background: var(--surface); color: var(--ink); }
+.card.ombra { background: #0c0b0a; color: #c9a45c; }
+.card.osteria { background: #f7f5f4; color: #2b2622; }
 .site .text { grid-column: 7 / span 6; }
 .site h3 { font-size: var(--d2); margin-bottom: 14px; }
 .site p { margin-bottom: 24px; }
@@ -260,8 +262,8 @@ const T = {
     workLede: 'Tre siti concept per mostrare la varianza: brief diversi, stili diversi. I marchi sono di fantasia.',
     sites: [
       { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Lista d’attesa per un’app di concentrazione, con un fluido WebGL vivo a tutto schermo.', href: 'flowstate/', cta: 'Apri il sito', cls: 'flow' },
-      { name: 'Prodotto 3D', card: 'In arrivo', desc: 'Un oggetto generato interamente da codice, che ruota con lo scroll.', soon: 'In arrivo', cls: 'soon' },
-      { name: 'Ristorante', card: 'In arrivo', desc: 'Sito per un ristorante: menu, ambiente, prenotazione.', soon: 'In arrivo', cls: 'soon' }
+      { name: 'Ombra', card: 'Eau de parfum', desc: 'Una bottiglia generata interamente in codice, che ruota con lo scroll in una stanza buia.', href: 'ombra/', cta: 'Apri il sito', cls: 'ombra' },
+      { name: 'Osteria Ventidue', card: 'Ventidue posti, un forno a legna', desc: 'Sito per un’osteria: menù, comanda che somma il conto, pianta dei posti e prenotazione via email.', href: 'osteria/', cta: 'Apri il sito', cls: 'osteria' }
     ]
   },
   en: {
@@ -321,8 +323,8 @@ const T = {
     workLede: 'Three concept sites to show range: different briefs, different looks. The brands are fictional.',
     sites: [
       { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Waitlist for a focus app, with a live full-screen WebGL fluid.', href: 'flowstate/', cta: 'Open the site', cls: 'flow' },
-      { name: '3D product', card: 'Coming soon', desc: 'An object generated entirely from code, rotating with the scroll.', soon: 'Coming soon', cls: 'soon' },
-      { name: 'Restaurant', card: 'Coming soon', desc: 'A restaurant site: menu, atmosphere, booking.', soon: 'Coming soon', cls: 'soon' }
+      { name: 'Ombra', card: 'Eau de parfum', desc: 'A perfume bottle generated entirely in code, turning with the scroll in a dark room.', href: 'ombra/', cta: 'Open the site', cls: 'ombra' },
+      { name: 'Osteria Ventidue', card: 'Twenty-two seats, one wood oven', desc: 'A site for a trattoria: menu, an order pad that adds up the bill, a seating plan and booking by email.', href: 'osteria/', cta: 'Open the site', cls: 'osteria' }
     ]
   }
 };
