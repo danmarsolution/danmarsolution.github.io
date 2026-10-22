@@ -1,0 +1,10 @@
+# local tooling, never published
+.taste-skill/
+.impeccable/
+.playwright/
+.claude/
+.agents/
+node_modules/
+*.log
+Thumbs.db
+.DS_Store
