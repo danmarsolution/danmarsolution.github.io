@@ -102,6 +102,15 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
 .seat.on { fill: var(--accent); transform: scale(1.18); }
 .table { fill: var(--ink); }
 
+.band { margin: var(--gap) calc(-1 * clamp(28px, 5vw, 72px)) 0; }
+.band img { width: 100%; height: clamp(260px, 36vw, 520px); object-fit: cover; display: block; filter: grayscale(1) contrast(1.06); transition: filter 0.6s var(--ease); }
+.band:hover img, .photo:hover img { filter: none; }
+.band figcaption { padding: 14px clamp(28px, 5vw, 72px); font-style: italic; color: var(--muted); font-size: var(--step-small); }
+.hand .photo { grid-column: 1 / span 5; }
+.hand .photo img { width: 100%; height: auto; display: block; filter: grayscale(1) contrast(1.06); transition: filter 0.6s var(--ease); }
+.hand-text { grid-column: 7 / span 6; align-self: center; font-size: var(--step-lead); line-height: 1.4; }
+.hand-text h2 { margin-bottom: 0.6em; }
+.hand-text p + p { margin-top: 0.9em; }
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--margin); }
 .tile { background: var(--surface); display: flex; flex-direction: column; }
 .tile svg { width: 100%; height: auto; display: block; }
@@ -119,6 +128,7 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
 .back { background: var(--ink); color: var(--paper); margin-top: var(--gap); padding: clamp(40px, 6vw, 96px) var(--margin) var(--margin); }
 .back .name { font-size: 20vw; line-height: 0.86; white-space: nowrap; }
 .back .name span { display: inline-block; }
+.back small a { color: inherit; }
 .back small { display: block; margin-top: 28px; font-size: var(--step-small); max-width: 70ch; }
 
 .js .rv { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0ms); }
@@ -131,7 +141,7 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
   .facts { grid-template-columns: 1fr; }
   .hero-low .lede, .letter h2, .letter .body, .menu-col, .pad, .plan, .plan-text, .visit h2, .visit .info { grid-column: 1 / -1; }
   .pad { position: static; }
-  .tiles { grid-template-columns: 1fr; }
+  .hand .photo, .hand-text { grid-column: 1 / -1; }
   .dish { grid-template-columns: 1fr auto; }
   .add { grid-column: 2; grid-row: 1 / span 2; }
   .dish .p { display: none; }
@@ -188,6 +198,11 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
       </div>
     </section>
 
+    <figure class="band rv">
+      <img src="img/colline-marche.webp" width="1600" height="965" alt="Una casa di pietra illuminata dal sole su un colle arato delle Marche" loading="lazy" decoding="async">
+      <figcaption>Le colline delle Marche, dove compriamo quasi tutto.</figcaption>
+    </figure>
+
     <section class="block" id="menu" aria-labelledby="h-menu">
       <h2 class="d rv" id="h-menu">Il menù, la comanda</h2>
       <div class="two" id="comanda">
@@ -222,38 +237,17 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
       </div>
     </section>
 
-    <section class="block" aria-labelledby="h-cucina">
-      <h2 class="d rv" id="h-cucina">Il forno, il pane, la tavola</h2>
-      <div class="tiles">
-        <figure class="tile rv">
-          <svg viewBox="0 0 200 160" role="img" aria-label="Il forno a legna">
-            <rect width="200" height="160" fill="#e1dad7"/>
-            <path d="M40 150V84a60 60 0 0 1 120 0v66z" fill="#2b2622"/>
-            <path d="M62 150V88a38 38 0 0 1 76 0v62z" fill="#f8f5f3"/>
-            <path d="M100 148c-18-6-22-24-8-40 2 8 8 10 10 4 10 10 18 26-2 36z" fill="#0f7d45"/>
-            <rect x="26" y="148" width="148" height="8" fill="#2b2622"/>
-          </svg>
-          <figcaption>Il forno</figcaption>
+
+    <section class="block" aria-labelledby="h-mano">
+      <div class="two hand">
+        <figure class="photo rv">
+          <img src="img/tagliatelle.webp" width="1000" height="1500" alt="Nidi di tagliatelle fresche su un tavolo di legno infarinato, con matterello, uova e pepe" loading="lazy" decoding="async">
         </figure>
-        <figure class="tile rv">
-          <svg viewBox="0 0 200 160" role="img" aria-label="Il pane del forno">
-            <rect width="200" height="160" fill="#e1dad7"/>
-            <ellipse cx="100" cy="92" rx="70" ry="38" fill="#2b2622"/>
-            <path d="M62 78l16 28M92 70l16 36M124 74l14 28" stroke="#e1dad7" stroke-width="7" stroke-linecap="round" fill="none"/>
-            <rect x="20" y="120" width="160" height="10" fill="#0f7d45"/>
-          </svg>
-          <figcaption>Il pane</figcaption>
-        </figure>
-        <figure class="tile rv">
-          <svg viewBox="0 0 200 160" role="img" aria-label="La tavola, con la caraffa del vino">
-            <rect width="200" height="160" fill="#e1dad7"/>
-            <rect x="20" y="118" width="160" height="12" fill="#2b2622"/>
-            <path d="M84 118V74c0-14 8-16 8-30h16c0 14 8 16 8 30v44z" fill="#2b2622"/>
-            <rect x="90" y="30" width="20" height="14" fill="#0f7d45"/>
-            <circle cx="52" cy="104" r="14" fill="#f8f5f3"/><circle cx="148" cy="104" r="14" fill="#f8f5f3"/>
-          </svg>
-          <figcaption>La tavola</figcaption>
-        </figure>
+        <div class="hand-text">
+          <h2 class="d rv" id="h-mano">Fatto a mano, la mattina</h2>
+          <p class="rv">La sfoglia si tira prima di aprire. Uova, farina e niente altro: le tagliatelle riposano un'ora, poi vanno nel brodo o al ragù bianco.</p>
+          <p class="rv">La sera la pasta che resta non si tiene: finisce nei passatelli del giorno dopo. Per questo il menù cambia, e per questo prenotiamo.</p>
+        </div>
       </div>
     </section>
 
@@ -277,7 +271,8 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(24px, 3vw, 48px); font-we
 
 <footer class="back">
   <div class="name d up" id="back-name" aria-hidden="true"><span>Ventidue</span></div>
-  <small>Osteria Ventidue è un locale inventato. Un concept di Daniele Marinangeli: menù, prezzi e indirizzo sono di esempio, e tutte le immagini sono disegnate in codice. <a href="../">Torna al portfolio</a>.</small>
+  <small class="credits">Fotografie: <a href="https://commons.wikimedia.org/w/index.php?curid=73810725">“Sunrise In Countryside Of Marche Region”</a> di Russo Francesco F R P I X C O M, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, via Wikimedia Commons; <a href="https://commons.wikimedia.org/wiki/File:Cooking-cuisine-delicious-egg-327143.jpg">“Cooking-cuisine-delicious-egg”</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, via Wikimedia Commons. Le fotografie mostrano il mondo del locale, non il locale.</small>
+  <small>Osteria Ventidue è un locale inventato. Un concept di Daniele Marinangeli: menù, prezzi e indirizzo sono di esempio, e i disegni sono fatti in codice. <a href="../">Torna al portfolio</a>.</small>
 </footer>
 
 <script>

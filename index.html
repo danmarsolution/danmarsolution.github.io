@@ -94,7 +94,9 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(32px, 4vw, 64px); max-wid
 
 .sites { display: grid; gap: 40px; }
 .site { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--margin); align-items: center; }
-.card { grid-column: 1 / span 5; aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 24px; color: #fff; font-family: "Public Sans", sans-serif; font-weight: 600; font-size: var(--step-lead); line-height: 1.1; text-decoration: none; }
+.card { grid-column: 1 / span 5; aspect-ratio: 16 / 10; display: block; overflow: hidden; background: var(--surface); color: var(--ink); padding: 0; text-decoration: none; font-weight: 600; }
+.card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
+.card:hover img { transform: scale(1.04); }
 .card.flow { background: #04050c; }
 .card.soon { background: var(--surface); color: var(--ink); }
 .card.ombra { background: #0c0b0a; color: #c9a45c; }
@@ -261,9 +263,9 @@ const T = {
     workH: 'Siti vetrina',
     workLede: 'Tre siti concept per mostrare la varianza: brief diversi, stili diversi. I marchi sono di fantasia.',
     sites: [
-      { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Lista d’attesa per un’app di concentrazione, con un fluido WebGL vivo a tutto schermo.', href: 'flowstate/', cta: 'Apri il sito', cls: 'flow' },
-      { name: 'Ombra', card: 'Eau de parfum', desc: 'Una bottiglia generata interamente in codice, che ruota con lo scroll in una stanza buia.', href: 'ombra/', cta: 'Apri il sito', cls: 'ombra' },
-      { name: 'Osteria Ventidue', card: 'Ventidue posti, un forno a legna', desc: 'Sito per un’osteria: menù, comanda che somma il conto, pianta dei posti e prenotazione via email.', href: 'osteria/', cta: 'Apri il sito', cls: 'osteria' }
+      { img: 'flowstate', name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Lista d’attesa per un’app di concentrazione, con un fluido WebGL vivo a tutto schermo.', href: 'flowstate/', cta: 'Apri il sito', cls: 'flow' },
+      { img: 'ombra', name: 'Ombra', card: 'Eau de parfum', desc: 'Una bottiglia generata interamente in codice, che ruota con lo scroll in una stanza buia.', href: 'ombra/', cta: 'Apri il sito', cls: 'ombra' },
+      { img: 'osteria', name: 'Osteria Ventidue', card: 'Ventidue posti, un forno a legna', desc: 'Sito per un’osteria: menù, comanda che somma il conto, pianta dei posti e prenotazione via email.', href: 'osteria/', cta: 'Apri il sito', cls: 'osteria' }
     ]
   },
   en: {
@@ -322,9 +324,9 @@ const T = {
     workH: 'Showcase sites',
     workLede: 'Three concept sites to show range: different briefs, different looks. The brands are fictional.',
     sites: [
-      { name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Waitlist for a focus app, with a live full-screen WebGL fluid.', href: 'flowstate/', cta: 'Open the site', cls: 'flow' },
-      { name: 'Ombra', card: 'Eau de parfum', desc: 'A perfume bottle generated entirely in code, turning with the scroll in a dark room.', href: 'ombra/', cta: 'Open the site', cls: 'ombra' },
-      { name: 'Osteria Ventidue', card: 'Twenty-two seats, one wood oven', desc: 'A site for a trattoria: menu, an order pad that adds up the bill, a seating plan and booking by email.', href: 'osteria/', cta: 'Open the site', cls: 'osteria' }
+      { img: 'flowstate', name: 'Flowstate', card: 'Deep work in a distracted world', desc: 'Waitlist for a focus app, with a live full-screen WebGL fluid.', href: 'flowstate/', cta: 'Open the site', cls: 'flow' },
+      { img: 'ombra', name: 'Ombra', card: 'Eau de parfum', desc: 'A perfume bottle generated entirely in code, turning with the scroll in a dark room.', href: 'ombra/', cta: 'Open the site', cls: 'ombra' },
+      { img: 'osteria', name: 'Osteria Ventidue', card: 'Twenty-two seats, one wood oven', desc: 'A site for a trattoria: menu, an order pad that adds up the bill, a seating plan and booking by email.', href: 'osteria/', cta: 'Open the site', cls: 'osteria' }
     ]
   }
 };
@@ -354,7 +356,7 @@ function render() {
   $('path-list').innerHTML = t.path[lens].map(r => `<div class="row rv"><div class="when display">${r[0]}</div><div class="what"><strong>${r[1]}</strong><span class="muted">${r[2]}</span><p style="margin-top:8px">${r[3]}</p></div></div>`).join('');
   $('work-h').textContent = t.workH;
   $('work-lede').textContent = t.workLede;
-  $('sites').innerHTML = t.sites.map(s => `<div class="site rv"><${s.href ? 'a href="' + s.href + '"' : 'div'} class="card ${s.cls}" ${s.href ? 'aria-label="' + s.name + '"' : ''}>${s.card}</${s.href ? 'a' : 'div'}><div class="text"><h3 class="display">${s.name}</h3><p>${s.desc}</p>${s.href ? '<a class="btn" href="' + s.href + '">' + s.cta + '</a>' : '<span class="badge">' + s.soon + '</span>'}</div></div>`).join('');
+  $('sites').innerHTML = t.sites.map(s => `<div class="site rv">${s.href ? '<a href="' + s.href + '" class="card ' + s.cls + '" aria-label="' + s.name + '"><img src="assets/previews/' + s.img + '.webp" alt="" width="1100" height="688" loading="lazy" decoding="async"></a>' : '<div class="card ' + s.cls + '">' + s.card + '</div>'}<div class="text"><h3 class="display">${s.name}</h3><p>${s.desc}</p>${s.href ? '<a class="btn" href="' + s.href + '">' + s.cta + '</a>' : '<span class="badge">' + s.soon + '</span>'}</div></div>`).join('');
   observe();
 }
 

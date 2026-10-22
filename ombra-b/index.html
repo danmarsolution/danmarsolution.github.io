@@ -108,7 +108,7 @@ try {
 if (renderer) start();
 
 function start() {
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(Math.max(window.devicePixelRatio, 1.75), 2)); // supersample: the refracted glass edges alias at 1x
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
   renderer.setClearColor(0x0c0b0a, 1);
