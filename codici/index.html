@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codici e inviti — i bonus dei servizi che uso</title>
+<meta name="description" content="Gli inviti e i codici sconto dei servizi che uso davvero: il bonus di benvenuto è per chi li usa. Filtra per categoria, ordina per scadenza o per nome.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../assets/fonts.css">
+<style>
+:root {
+  --ground: #101214;
+  --surface: #1a1d21;
+  --surface-2: #22262b;
+  --ink: #eceef1;
+  --muted: #a8aeb7;
+  --lime: #c8f25c;
+  --spent: #14171a;
+  --margin: clamp(16px, 2.2vw, 32px);
+  --gap: clamp(88px, 11vw, 160px);
+  --body: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+  --lead: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+  --head: clamp(2.75rem, 1.6rem + 4.6vw, 6rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --stub: clamp(150px, 17vw, 220px);
+  --act: clamp(250px, 25vw, 330px);
+}
+* { margin: 0; box-sizing: border-box; }
+html { background: var(--ground); scroll-behavior: smooth; }
+body { font-family: "Public Sans", system-ui, sans-serif; font-size: var(--body); line-height: 1.55; color: var(--ink); background: var(--ground); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+button, select { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; border-radius: 0; background: none; }
+:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+::selection { background: var(--lime); color: var(--ground); }
+.d { font-family: "Big Shoulders", "Arial Narrow", sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.9; }
+p { max-width: 60ch; }
+.frame { width: calc(100% - 2 * var(--margin)); max-width: 88rem; margin: 0 auto; }
+
+.bar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 20px; }
+.wordmark { font-size: var(--lead); text-decoration: none; }
+.bar a.back { text-decoration: none; }
+.bar a.back:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+/* hero */
+.hero { padding-top: clamp(28px, 6vw, 88px); display: grid; grid-template-columns: 1fr auto; gap: var(--margin); align-items: end; }
+h1 { font-size: clamp(4rem, 15vw, 14rem); }
+.live { text-align: right; padding-bottom: 0.6vw; }
+.live b { display: block; font-family: "Big Shoulders", sans-serif; font-weight: 800; font-size: clamp(5rem, 11vw, 10rem); line-height: 0.8; color: var(--lime); }
+.live span { display: block; margin-top: 10px; color: var(--muted); }
+.intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--margin) clamp(28px, 6vw, 112px); margin-top: clamp(32px, 4vw, 64px); align-items: start; }
+.lede { font-size: var(--lead); line-height: 1.3; max-width: 26ch; }
+.disclose { color: var(--muted); }
+
+/* controls */
+.controls { margin-top: var(--gap); display: grid; grid-template-columns: 1fr auto; gap: 20px var(--margin); align-items: start; }
+h2 { font-size: var(--head); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(20px, 2.4vw, 32px); }
+.chip { padding: 10px 18px; background: var(--surface-2); font-weight: 600; transition: background-color 0.2s, color 0.2s, transform 0.2s var(--ease); }
+.chip:hover { transform: translateY(-2px); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.chip i { font-style: normal; color: var(--muted); margin-left: 8px; font-weight: 400; }
+.chip[aria-pressed="true"] i { color: #4d535b; }
+.tools { display: grid; gap: 14px; justify-items: end; padding-top: 12px; }
+.tools label { display: flex; align-items: center; gap: 12px; }
+select { background: var(--surface-2); padding: 12px 16px; border: 0; border-radius: 0; min-width: 12rem; }
+.tools .check { gap: 10px; cursor: pointer; }
+.tools input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--lime); }
+
+.js .rv { opacity: 0; transform: translateY(24px); }
+.js .rv.in { opacity: 1; transform: none; transition: opacity 0.9s var(--ease) var(--d, 0s), transform 0.9s var(--ease) var(--d, 0s); }
+
+/* the stubs */
+.list { margin-top: clamp(28px, 3.4vw, 48px); display: grid; gap: clamp(16px, 2vw, 28px); }
+.coupon { position: relative; display: grid; grid-template-columns: var(--stub) 1fr var(--act); background: var(--surface); animation: rise 0.7s var(--ease) both; animation-delay: var(--d, 0s); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.stub { background: var(--c); color: var(--ground); padding: clamp(18px, 2vw, 30px); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; position: relative; }
+.stub strong { font-family: "Big Shoulders", sans-serif; font-weight: 800; font-size: clamp(3.2rem, 1.6rem + 3.2vw, 4.75rem); line-height: 0.82; letter-spacing: -0.02em; white-space: nowrap; }
+.main { padding: clamp(20px, 2.4vw, 36px); }
+.main h3 { font-size: clamp(2.2rem, 1.5rem + 2.4vw, 3.6rem); }
+.main .tag { margin-top: 8px; color: var(--muted); }
+.main p.desc { margin-top: 16px; }
+.main p.note { margin-top: 10px; color: var(--muted); }
+.act { padding: clamp(20px, 2.4vw, 36px); display: flex; flex-direction: column; gap: 14px; justify-content: space-between; position: relative; background: var(--surface-2); }
+.codebox { display: block; width: 100%; text-align: left; padding: 14px 16px; background: var(--ground); font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; transition: background-color 0.2s; }
+.codebox:hover { background: #000; }
+.codebox small { display: block; font-weight: 400; color: var(--muted); font-size: 1rem; }
+.go { display: flex; align-items: center; justify-content: center; height: 54px; background: var(--ink); color: var(--ground); font-weight: 600; text-decoration: none; transition: transform 0.2s var(--ease), background-color 0.2s; }
+.go:hover { transform: translateY(-2px); background: #fff; }
+.go:active { transform: none; }
+.valid { color: var(--muted); }
+.valid b { color: var(--ink); font-weight: 600; }
+
+/* notches: the ticket edges */
+.stub::before, .stub::after, .act::before, .act::after { content: ""; position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--ground); z-index: 2; }
+.stub::before { right: -14px; top: -14px; } .stub::after { right: -14px; bottom: -14px; }
+.act::before { left: -14px; top: -14px; } .act::after { left: -14px; bottom: -14px; }
+
+/* the spent ones: darker, struck through, no colour */
+.coupon.spent { background: var(--spent); animation-name: rise; }
+.coupon.spent .stub { background: var(--surface); color: #7d838c; }
+.coupon.spent .stub strong { text-decoration: line-through; text-decoration-thickness: 4px; }
+.coupon.spent .act { background: var(--spent); }
+.coupon.spent h3, .coupon.spent .codebox span { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: #5d636b; }
+.coupon.spent h3, .coupon.spent .tag, .coupon.spent .desc, .coupon.spent .note { color: #8d939c; }
+.coupon.spent .codebox { background: var(--surface); color: #8d939c; cursor: default; }
+.coupon.spent .go { background: var(--surface); color: #8d939c; pointer-events: none; }
+.coupon.spent .valid b { color: #c9ced6; }
+.coupon.spent .stub::before, .coupon.spent .stub::after { background: var(--ground); }
+.empty { padding: 56px 0; color: var(--muted); }
+
+/* before you use them */
+.before { margin-top: var(--gap); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 5vw, 80px); }
+.before h2 { grid-column: 1 / -1; }
+.before h3 { font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.9rem); margin-bottom: 14px; }
+footer { margin-top: var(--gap); padding: clamp(40px, 6vw, 80px) 0 40px; background: var(--surface); }
+.bigname { font-size: clamp(4rem, 17vw, 17rem); }
+footer small { display: block; margin-top: 26px; color: var(--muted); font-size: 1rem; max-width: 70ch; }
+
+@media (max-width: 900px) {
+  .hero, .intro, .controls, .before { grid-template-columns: 1fr; }
+  .live { text-align: left; }
+  .tools { justify-items: start; }
+  .coupon { grid-template-columns: 1fr; }
+  .stub { flex-direction: row; align-items: flex-end; }
+  .stub::before { right: auto; left: -14px; top: auto; bottom: -14px; }
+  .stub::after { right: -14px; bottom: -14px; }
+  .act::before { left: -14px; top: -14px; } .act::after { left: auto; right: -14px; bottom: auto; top: -14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rv, .js .rv.in { opacity: 1; transform: none; transition: none; }
+  .coupon { animation: none; }
+  .chip:hover, .go:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<header class="frame bar">
+  <a class="wordmark d" href="#top">Codici di Daniele</a>
+  <a class="back" href="../">Portfolio</a>
+</header>
+
+<main id="top">
+<div class="frame hero">
+  <h1 class="d rv">Codici e inviti</h1>
+  <div class="live rv" style="--d:.1s" aria-live="polite"><b id="count">0</b><span id="count-label">inviti attivi</span></div>
+</div>
+<div class="frame intro">
+  <p class="lede rv">Servizi che uso davvero. Con il mio invito il bonus di benvenuto è tuo.</p>
+  <p class="disclose rv" style="--d:.08s">Sono link di invito: se ti iscrivi con il mio, ricevo un bonus anch'io. Costa uguale per te, ma i bonus li decidono i servizi e cambiano spesso, quindi controlla sempre le condizioni prima di fidarti di una cifra.</p>
+</div>
+
+<section class="frame" aria-labelledby="h-list">
+  <div class="controls rv">
+    <div>
+      <h2 class="d" id="h-list">I codici</h2>
+      <div class="chips" id="chips" role="group" aria-label="Filtra per categoria"></div>
+    </div>
+    <div class="tools">
+      <label>Ordina per
+        <select id="sort">
+          <option value="scadenza">Scadenza</option>
+          <option value="nome">Nome del servizio</option>
+          <option value="categoria">Categoria</option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" id="spent" checked> Mostra anche gli scaduti</label>
+    </div>
+  </div>
+  <div class="list" id="list"></div>
+  <noscript><p class="empty">Serve JavaScript per mostrare l'elenco. I link sono: Scalable Capital https://it.scalable.capital/invito/bstgpj · Revolut https://revolut.com/clip/referral/?referral-code=USJFTE</p></noscript>
+</section>
+
+<section class="frame before" aria-labelledby="h-before">
+  <h2 class="d rv" id="h-before">Prima di usarli</h2>
+  <div class="rv" style="--d:0.0s">
+    <h3 class="d">Ci guadagno anch'io</h3>
+    <p>Ogni invito premia chi lo usa, e di solito anche chi lo manda. Non cambia nulla per te: scelgo solo servizi che userei comunque.</p>
+  </div>
+  <div class="rv" style="--d:0.08s">
+    <h3 class="d">Le condizioni cambiano</h3>
+    <p>Cifre, scadenze e requisiti sono quelli che vedo io al momento della pubblicazione. Fa fede la pagina del servizio, non questa.</p>
+  </div>
+  <div class="rv" style="--d:0.16s">
+    <h3 class="d">Scaduto vuol dire scaduto</h3>
+    <p>Un invito che ha perso il bonus resta qui, scurito e barrato, finché non lo tolgo. Il link non porta più a nulla di utile.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="frame">
+    <div class="bigname d rv" aria-hidden="true">Inviti</div>
+    <small>Pagina personale di Daniele Marinangeli. I nomi dei servizi appartengono ai rispettivi proprietari; non c'è alcuna affiliazione ufficiale. Le schede «Esempio» sono prove grafiche con dati inventati.</small>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Per aggiungere un invito: una riga qui. until: 'AAAA-MM-GG' oppure null se non dichiarata. Per toglierlo: cancella la riga.
+  var CODES = [
+    { cat: 'Investimenti', c: '#c8f25c', name: 'Scalable Capital', bonus: '25 €',
+      desc: "Apri un conto con il mio invito e richiedi un bonus iniziale di 25 €. L'offerta è limitata nel tempo.",
+      note: 'La scadenza non è dichiarata: meglio non aspettare.',
+      link: 'https://it.scalable.capital/invito/bstgpj', code: null, until: null },
+    { cat: 'Banca e pagamenti', c: '#7fd6f0', name: 'Revolut', bonus: 'Invito',
+      desc: "Apri un conto con il mio invito. Per far scattare il bonus della campagna in corso: iscriviti con il link e verifica l'identità, ricarica il conto con carta di debito o bonifico, fai 3 acquisti da almeno 5 € ciascuno e ordina una carta fisica.",
+      note: "Non contano invio di denaro, carte regalo e gioco d'azzardo.",
+      link: 'https://revolut.com/clip/referral/?referral-code=USJFTE', code: 'USJFTE', until: '2026-10-27' },
+    { cat: 'Energia', c: '#ffb347', name: 'Octopus Energy', bonus: '50 €',
+      desc: 'Attiva una nuova fornitura di luce e/o gas con Octopus Energy usando il mio link e ricevi 50 €. Il link serve per passare a Octopus.',
+      note: 'Dopo la scadenza il bonus scende a 30 €.',
+      link: 'https://octopusenergy.it/octo-friends/tense-paddle-504', code: null, until: '2026-10-26' },
+    // Schede di prova per vedere il look degli scaduti: dati inventati, da cancellare.
+    { cat: 'Telefonia', c: '#ff8a80', name: 'Esempio Mobile', bonus: '20 €', demo: true,
+      desc: 'Scheda di prova: cambia operatore con il mio invito e ricevi 20 € di credito sulla prima ricarica.',
+      note: 'Dati inventati.', link: '#', code: 'ESEMPIO20', until: '2026-09-30' },
+    { cat: 'Viaggi', c: '#8ee3b0', name: 'Esempio Viaggi', bonus: '15 €', demo: true,
+      desc: 'Scheda di prova: 15 € di sconto sulla prima prenotazione con il mio codice.',
+      note: 'Dati inventati.', link: '#', code: 'VIAGGIA15', until: '2026-08-15' },
+    { cat: 'Shopping', c: '#f4a8d6', name: 'Esempio Market', bonus: '10 €', demo: true,
+      desc: 'Scheda di prova: 10 € sul primo ordine sopra i 50 €.',
+      note: 'Dati inventati.', link: '#', code: 'PRIMO10', until: '2026-06-30' }
+  ];
+
+  var now = new Date();
+  CODES.forEach(function (x) {
+    x.end = x.until ? new Date(x.until + 'T23:59:59') : null;
+    x.spent = !!(x.end && x.end < now);
+  });
+  var fmt = function (d) { return d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' }); };
+  var daysLeft = function (x) { return Math.ceil((x.end - now) / 86400000); };
+
+  var state = { cat: 'Tutte', sort: 'scadenza', spent: true };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  function validity(x) {
+    if (!x.end) return 'Scadenza <b>non dichiarata</b>';
+    if (x.spent) return 'Scaduto il <b>' + fmt(x.end) + '</b>';
+    var n = daysLeft(x);
+    return 'Valido fino al <b>' + fmt(x.end) + '</b>' + (n <= 1 ? ', scade oggi' : n <= 30 ? ', ancora ' + n + ' giorni' : '');
+  }
+
+  function sorted(list) {
+    var by = {
+      scadenza: function (a, b) { return (a.end ? a.end : 8.64e15) - (b.end ? b.end : 8.64e15); },
+      nome: function (a, b) { return a.name.localeCompare(b.name, 'it'); },
+      categoria: function (a, b) { return a.cat.localeCompare(b.cat, 'it') || a.name.localeCompare(b.name, 'it'); }
+    }[state.sort];
+    var live = list.filter(function (x) { return !x.spent; }).sort(by);
+    var dead = list.filter(function (x) { return x.spent; }).sort(state.sort === 'scadenza' ? function (a, b) { return b.end - a.end; } : by);
+    return live.concat(dead);
+  }
+
+  function chips() {
+    var cats = ['Tutte'];
+    CODES.forEach(function (x) { if (cats.indexOf(x.cat) < 0) cats.push(x.cat); });
+    $('chips').innerHTML = cats.map(function (c) {
+      var n = c === 'Tutte' ? CODES.length : CODES.filter(function (x) { return x.cat === c; }).length;
+      return '<button type="button" class="chip" data-cat="' + esc(c) + '" aria-pressed="' + (state.cat === c) + '">' + esc(c) + '<i>' + n + '</i></button>';
+    }).join('');
+  }
+
+  function render() {
+    var list = CODES.filter(function (x) { return (state.cat === 'Tutte' || x.cat === state.cat) && (state.spent || !x.spent); });
+    list = sorted(list);
+    $('list').innerHTML = list.length ? list.map(function (x, i) {
+      var codeLine = x.code ? esc(x.code) : esc(x.link.replace(/^https?:\/\//, ''));
+      return '<article data-ui class="coupon' + (x.spent ? ' spent' : '') + '" style="--c:' + x.c + ';--d:' + (i * 0.06) + 's">' +
+        '<div class="stub"><strong>' + esc(x.bonus) + '</strong></div>' +
+        '<div class="main"><h3 class="d">' + esc(x.name) + '</h3><p class="tag">' + esc(x.cat) + (x.demo ? ' · scheda di prova' : '') + '</p>' +
+        '<p class="desc">' + esc(x.desc) + '</p>' + (x.note ? '<p class="note">' + esc(x.note) + '</p>' : '') + '</div>' +
+        '<div class="act">' +
+        (x.spent ? '<span class="codebox"><small>' + (x.code ? 'Codice' : 'Link') + '</small><span>' + codeLine + '</span></span>' :
+          '<button type="button" class="codebox" data-copy="' + esc(x.code || x.link) + '"><small>' + (x.code ? 'Codice, tocca per copiare' : 'Link, tocca per copiare') + '</small><span>' + codeLine + '</span></button>') +
+        (x.spent ? '<span class="go" aria-disabled="true">Non più valido</span>' : '<a class="go" href="' + esc(x.link) + '" target="_blank" rel="noopener sponsored">Apri l\'invito</a>') +
+        '<p class="valid">' + validity(x) + '</p></div></article>';
+    }).join('') : '<p class="empty">Nessun invito in questa categoria.</p>';
+
+    var live = CODES.filter(function (x) { return !x.spent; }).length;
+    $('count').textContent = live;
+    $('count-label').textContent = live === 1 ? 'invito attivo' : 'inviti attivi';
+  }
+
+  document.addEventListener('click', function (e) {
+    var ch = e.target.closest('.chip');
+    if (ch) { state.cat = ch.dataset.cat; chips(); render(); return; }
+    var cp = e.target.closest('[data-copy]');
+    if (cp) {
+      var small = cp.querySelector('small'), old = small.textContent;
+      var done = function () { small.textContent = 'Copiato'; setTimeout(function () { small.textContent = old; }, 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(cp.dataset.copy).then(done, done); else done();
+    }
+  });
+  $('sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+  $('spent').addEventListener('change', function (e) { state.spent = e.target.checked; render(); });
+
+  chips(); render();
+
+  document.documentElement.classList.add('js');
+  var els = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else { els.forEach(function (el) { el.classList.add('in'); }); }
+})();
+</script>
+</body>
+</html>

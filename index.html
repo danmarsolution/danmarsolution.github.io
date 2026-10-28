@@ -58,6 +58,10 @@ p { max-width: 62ch; }
 .name .ln:nth-child(2) > span { animation-delay: 0.12s; }
 @keyframes rise { to { transform: none; } }
 .hero { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--margin); row-gap: clamp(20px, 3vw, 44px); align-items: start; }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.7s var(--ease); }
+.portrait .p-pm { opacity: 0; }
+[data-lens="pm"] .portrait .p-pm { opacity: 1; }
+[data-lens="pm"] .portrait .p-dev { opacity: 0; }
 .hero-grid { display: contents; }
 .hero .name { grid-column: 1 / span 8; grid-row: 1; }
 .hero-left { grid-column: 1 / span 8; grid-row: 2; }
@@ -67,7 +71,7 @@ p { max-width: 62ch; }
 .tabs button { padding: 18px 26px; font-weight: 600; font-size: var(--step-body); background: var(--surface); transition: background-color 0.3s, color 0.3s, transform 0.2s var(--ease); }
 .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .tabs button:hover { transform: translateY(-2px); }
-.portrait { grid-column: 9 / span 4; grid-row: 1 / span 2; align-self: start; aspect-ratio: 1 / 1; background: var(--surface); color: var(--ink); display: block; width: 100%; transition: background-color 0.7s var(--ease); }
+.portrait { position: relative; overflow: hidden; grid-column: 9 / span 4; grid-row: 1 / span 2; align-self: start; aspect-ratio: 1 / 1; background: var(--surface); color: var(--ink); display: block; width: 100%; transition: background-color 0.7s var(--ease); }
 
 /* ---- sections ---- */
 section { padding: 0 var(--margin) var(--gap); }
@@ -165,13 +169,10 @@ h2 { font-size: var(--step-head); margin-bottom: clamp(32px, 4vw, 64px); max-wid
           <button type="button" data-set-lens="pm" aria-pressed="false" id="tab-pm"></button>
         </div>
       </div>
-      <svg class="portrait" viewBox="0 0 400 400" role="img" aria-label="Placeholder portrait">
-        <rect width="400" height="400" fill="currentColor" opacity="0.08"/>
-        <circle cx="200" cy="150" r="70" fill="currentColor"/>
-        <path d="M60 400c0-92 62-150 140-150s140 58 140 150z" fill="currentColor"/>
-        <path d="M150 140h100v22a50 50 0 0 1-100 0z" fill="var(--bg)" opacity="0.9"/>
-        <rect x="168" y="150" width="64" height="8" fill="currentColor"/>
-      </svg>
+      <div class="portrait" role="img" aria-label="Daniele Marinangeli">
+        <img class="p-dev" src="assets/img/daniele-dev.webp" alt="" width="800" height="800" decoding="async">
+        <img class="p-pm" src="assets/img/daniele-pm.webp" alt="" width="800" height="800" decoding="async">
+      </div>
     </div>
   </section>
 
@@ -220,7 +221,7 @@ const T = {
     figures: {
       dev: [
         ['10+', 'anni di software industriale in .NET'],
-        ['6', 'paesi in cui ho installato e collaudato impianti'],
+        ['10+', 'paesi visitati per trasferte di lavoro'],
         ['10+', 'anni di assistenza remota a clienti italiani ed esteri']
       ],
       pm: [
@@ -236,14 +237,16 @@ const T = {
         ['Driver hardware', 'Scanner, misuratori di potenza, banchi di certificazione elettrica, generatori di tensione.'],
         ['Assistenza remota', 'Bug complessi e blocchi di produzione, fino al ripristino completo del sistema del cliente.'],
         ['Front-end e AI', 'Angular (TypeScript) e prototipi Android sviluppati con strumenti di AI; repository su GitHub.'],
-        ['Strumenti', 'Git, Azure DevOps con pipeline CI/CD, Visual Studio; Windows Server, VMware, Citrix.']
+        ['Strumenti', 'Git, Azure DevOps con pipeline CI/CD, Visual Studio; Windows Server, VMware, Citrix.'],
+        ['Fiducia col cliente', 'Presenza costante e comunicazione chiara, anche nei momenti critici: l’obiettivo è diventare il riferimento tecnico di cui il cliente si fida.']
       ],
       pm: [
         ['Consegna completa', 'Requisiti, sviluppo, test, rilascio e assistenza post-vendita, con attenzione a qualità e scadenze.'],
         ['Pianificazione', 'Attività e risorse in un’azienda certificata ISO 9001; sprint e riunioni di progetto.'],
         ['Tante parti, un progetto', 'Clienti, fornitori, team meccanici e altri gruppi interni, per inserire il software nell’impianto.'],
         ['Proposte', 'Proposte tecniche e commerciali per nuovi progetti, insieme a qualità, produzione e ingegneria del cliente.'],
-        ['Team e AI', 'Un team back-end e front-end da 3 a 6 persone; strumenti di AI adottati per sviluppo e documentazione.']
+        ['Team e AI', 'Un team back-end e front-end da 3 a 6 persone; strumenti di AI adottati per sviluppo e documentazione.'],
+        ['Fiducia col cliente', 'Un referente chiaro, aggiornamenti onesti e impegni mantenuti: la fiducia costruita in anni di lavoro con clienti multinazionali.']
       ]
     },
     pathH: { dev: 'Il mio percorso', pm: 'Il mio percorso' },
@@ -252,13 +255,13 @@ const T = {
         ['2023 – oggi', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Guido la divisione e resto operativo sul codice: architetture, rilasci e assistenza post-vendita.'],
         ['2021 – oggi', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Sistemi di collaudo e supervisione, driver hardware, trasferte per installazione e messa in servizio.'],
         ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Controllo qualità automatico: dall’architettura, hardware compreso, alla messa in servizio all’estero.'],
-        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche', 'Votazione 80/100.']
+        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche']
       ],
       pm: [
         ['2023 – oggi', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Divisione per sistemi di controllo e collaudo automatico: team, pianificazione, proposte e consegna.'],
         ['2021 – oggi', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Il lavoro tecnico che sostiene la guida: relazione diretta con i clienti multinazionali.'],
         ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Responsabilità completa dei progetti, spesso con scadenze di produzione strette.'],
-        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche', 'Votazione 80/100.']
+        ['2009 – 2014', 'Diploma tecnico in Informatica', 'ITIS “Eustachio Divini”, San Severino Marche']
       ]
     },
     workH: 'Siti vetrina',
@@ -282,7 +285,7 @@ const T = {
     figures: {
       dev: [
         ['10+', 'years of industrial software in .NET'],
-        ['6', 'countries where I installed and tested systems'],
+        ['10+', 'countries visited on business trips'],
         ['10+', 'years of remote support for national and international clients']
       ],
       pm: [
@@ -298,14 +301,16 @@ const T = {
         ['Hardware drivers', 'Scanners, power meters, electrical certification test benches, voltage generators.'],
         ['Remote support', 'Complex bugs and blocking issues, through to the full recovery of the customer’s system.'],
         ['Front-end and AI', 'Angular (TypeScript) and Android prototypes built with AI tools; repositories on GitHub.'],
-        ['Tooling', 'Git, Azure DevOps with CI/CD pipelines, Visual Studio; Windows Server, VMware, Citrix.']
+        ['Tooling', 'Git, Azure DevOps with CI/CD pipelines, Visual Studio; Windows Server, VMware, Citrix.'],
+        ['Client trust', 'Constant availability and clear communication, even when things get critical: the goal is to be the technical reference the client can rely on.']
       ],
       pm: [
         ['End-to-end delivery', 'Requirements, development, testing, release and post-sales support, with a focus on quality and deadlines.'],
         ['Planning', 'Activities and resources in an ISO 9001-certified company; sprints and project meetings.'],
         ['Many parties, one project', 'Clients, suppliers, mechanical teams and other internal groups, to fit the software into the plant.'],
         ['Proposals', 'Technical and commercial proposals for new projects, with the client’s quality, production and engineering.'],
-        ['Team and AI', 'A back-end and front-end team of 3 to 6 people; AI tools adopted for development and documentation.']
+        ['Team and AI', 'A back-end and front-end team of 3 to 6 people; AI tools adopted for development and documentation.'],
+        ['Client trust', 'A clear point of contact, honest updates and promises kept: trust built over years of working with multinational clients.']
       ]
     },
     pathH: { dev: 'My path', pm: 'My path' },
@@ -314,13 +319,13 @@ const T = {
         ['2023 – present', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'I lead the division and stay hands-on in the code: architectures, releases and post-sales support.'],
         ['2021 – present', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'Testing and supervisory systems, hardware drivers, travel for installation and commissioning.'],
         ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Automatic quality control: from architecture, hardware included, to commissioning abroad.'],
-        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche', 'Grade 80/100.']
+        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche']
       ],
       pm: [
         ['2023 – present', 'Head of Control Division', 'Esisoftware (QS Group), Cerreto d’Esi', 'Division for automated control and testing systems: team, planning, proposals and delivery.'],
         ['2021 – present', 'Software Backend Developer', 'Esisoftware (QS Group), Cerreto d’Esi', 'The technical work behind the leadership: a direct relationship with multinational clients.'],
         ['2016 – 2021', 'Software Designer / Developer', 'AEA (Loccioni Group), Angeli di Rosora', 'Full project ownership, often under tight production deadlines.'],
-        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche', 'Grade 80/100.']
+        ['2009 – 2014', 'Technical diploma in Computer Science', 'ITIS “Eustachio Divini”, San Severino Marche']
       ]
     },
     workH: 'Showcase sites',
@@ -356,7 +361,7 @@ function render() {
   $('what-h').textContent = t.whatH[lens];
   $('what-list').innerHTML = t.what[lens].map(r => `<div class="row rv"><h3 class="display">${r[0]}</h3><p>${r[1]}</p></div>`).join('');
   $('path-h').textContent = t.pathH[lens];
-  $('path-list').innerHTML = t.path[lens].map(r => `<div class="row rv"><div class="when display">${r[0]}</div><div class="what"><strong>${r[1]}</strong><span class="muted">${r[2]}</span><p style="margin-top:8px">${r[3]}</p></div></div>`).join('');
+  $('path-list').innerHTML = t.path[lens].map(r => `<div class="row rv"><div class="when display">${r[0]}</div><div class="what"><strong>${r[1]}</strong><span class="muted">${r[2]}</span>${r[3] ? '<p style="margin-top:8px">' + r[3] + '</p>' : ''}</div></div>`).join('');
   $('work-h').textContent = t.workH;
   $('work-lede').textContent = t.workLede;
   $('sites').innerHTML = t.sites.map(s => `<div class="site rv">${s.href ? '<a href="' + s.href + '" class="card ' + s.cls + '" aria-label="' + s.name + '"><img src="assets/previews/' + s.img + '.webp" alt="" width="1100" height="688" loading="lazy" decoding="async"></a>' : '<div class="card ' + s.cls + '">' + s.card + '</div>'}<div class="text"><h3 class="display">${s.name}</h3><p>${s.desc}</p>${s.href ? '<a class="btn" href="' + s.href + '">' + s.cta + '</a>' : '<span class="badge">' + s.soon + '</span>'}</div></div>`).join('');
